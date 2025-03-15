@@ -1,6 +1,6 @@
 <template>
 	<header class="pb-[10rem] bg-neutral-3 lg:overflow-x-clip lg:pb-0">
-		<div class="container relative text-center lg:flex lg:px-[3.5rem]">
+		<div class="lg:container relative text-center lg:flex lg:px-[3.5rem] xl:px-0">
 			<picture>
 				<source :srcset="desktopIntro" media="(min-width: 1024px)" />
 				<img

@@ -1,14 +1,16 @@
 <template>
-	<section class="bg-neutral-3 py-[7rem] px-[2.2rem] text-center">
-		<h2 class="capitalize text-[3rem] md:text-[3.5rem]">latest articles</h2>
-		<div class="mt-[3rem] grid gap-y-[3rem] md:grid-cols-2 md:gap-[2rem]">
-			<div class="rounded-lg overflow-hidden" v-for="(item, index) in articlesData" :key="index">
-				<img :src="item.img" :alt="item.alt" class="block h-[27rem] w-full z-[10]" />
-				<div
-					class="p-[3rem] pb-[3.9rem mt-[-2.5rem] bg-neutral-4 z-[20] relative text-neutral-1 text-left grid gap-y-[1rem]">
-					<p class="text-[1.1rem]">{{ item.quote }}</p>
-					<h3 class="text-primary-1">{{ item.title }}</h3>
-					<p class="text-[1.3rem]">{{ item.desc }}</p>
+	<section class="bg-neutral-3 py-[7rem] px-[2.2rem]">
+		<div class="text-center container xl:px-[3.5rem]">
+			<h2 class="capitalize text-[3rem] md:text-[3.5rem]">latest articles</h2>
+			<div class="mt-[3rem] grid gap-y-[3rem] md:grid-cols-2 md:gap-[2rem] xl:grid-cols-4">
+				<div class="rounded-lg overflow-hidden" v-for="(item, index) in articlesData" :key="index">
+					<img :src="item.img" :alt="item.alt" class="block h-[27rem] w-full z-[10]" />
+					<div
+						class="p-[3rem] pb-[3.9rem mt-[-2.5rem] bg-neutral-4 z-[20] relative text-neutral-1 text-left grid gap-y-[1rem]">
+						<p class="text-[1.1rem] xl:text-[1.2rem]">{{ item.quote }}</p>
+						<h3 class="text-primary-1 xl:text-[1.8rem]">{{ item.title }}</h3>
+						<p class="text-[1.3rem] xl:text-[1.35rem]">{{ item.desc }}</p>
+					</div>
 				</div>
 			</div>
 		</div>
