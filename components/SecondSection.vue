@@ -7,7 +7,7 @@
 				<div
 					class="p-[3rem] pb-[3.9rem mt-[-2.5rem] bg-neutral-4 z-[20] relative text-neutral-1 text-left grid gap-y-[1rem]">
 					<p class="text-[1.1rem]">{{ item.quote }}</p>
-					<h3 class="text-black">{{ item.title }}</h3>
+					<h3 class="text-primary-1">{{ item.title }}</h3>
 					<p class="text-[1.3rem]">{{ item.desc }}</p>
 				</div>
 			</div>

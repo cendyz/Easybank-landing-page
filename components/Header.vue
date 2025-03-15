@@ -5,7 +5,7 @@
 			:src="phones"
 			alt="4 phones"
 			class="block w-[calc(100%-3rem)] absolute top-[-7rem] left-1/2 translate-x-[-50%]" />
-		<h1 class="text-[4rem] leading-[1.1] mt-[-3rem] mb-[3rem]">Next generation digital banking</h1>
+		<h1 class="text-[4rem] leading-[1.1] mt-[-3rem] mb-[3rem] text-primary-1">Next generation digital banking</h1>
 		<p class="text-[1.5rem] px-[1rem] text-neutral-1">
 			Take your financial life online. Your Easybank account will be a one-stop-shop for spending, saving, budgeting,
 			investing, and much more.
