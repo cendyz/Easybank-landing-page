@@ -106,4 +106,5 @@ const socialsData = ref([
 		}
 	}
 }
+
 </style>
