@@ -1,5 +1,5 @@
 <template>
-	<section class="bg-neutral-2 py-[7rem] px-[2.2rem] text-center text-neutral-1 text-[1.5rem] md:text-[1.6rem]">
+	<section class="bg-neutral-2 py-[7rem] px-[2.2rem] text-center text-neutral-1 text-[1.5rem] md:text-[1.6rem] xl:z-[9] xl:relative">
 		<h2 class="text-[3rem] leading-[1.2] mb-[2.2rem] px-[1rem] text-primary-1 md:text-[3.5rem]">
 			Why choose Easybank?
 		</h2>
