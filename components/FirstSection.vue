@@ -1,5 +1,5 @@
 <template>
-	<section class="bg-neutral-3 py-[7rem] px-[2.2rem] text-center text-neutral-1 text-[1.5rem]">
+	<section class="bg-neutral-2 py-[7rem] px-[2.2rem] text-center text-neutral-1 text-[1.5rem]">
 		<h2 class="text-[3rem] leading-[1.2] mb-[2.2rem] px-[1rem] text-black">Why choose Easybank?</h2>
 		<p>
 			We leverage Open Banking to turn your bank account into your financial hub. Control your finances like never
@@ -7,7 +7,7 @@
 		</p>
 		<div class="mt-[7rem] grid gap-y-[3rem]">
 			<div v-for="(item, index) in profitsData" :key="index">
-				<img :src="item.img" :alt="item.title" class="block mx-auto" />
+				<img :src="item.img" :alt="item.title" class="block mx-auto w-[7rem]" />
 				<h3 class="text-black text-[2rem] my-[2rem]">{{ item.title }}</h3>
 				<p>
 					{{ item.desc }}

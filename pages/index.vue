@@ -3,4 +3,8 @@
 	<Main />
 </template>
 
-<script setup lang="ts"></script>
+<style lang="scss">
+body {
+	background-color: #fff;
+}
+</style>

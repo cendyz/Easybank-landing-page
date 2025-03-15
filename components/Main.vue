@@ -1,6 +1,7 @@
 <template>
-	<main>
+	<main class="container">
         <FirstSection />
+		<SecondSection />
 		<Transition>
 			<div
 				v-if="store.isOpenMenu"
