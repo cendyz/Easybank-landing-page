@@ -1,5 +1,5 @@
 <template>
-	<nav class="p-[2.2rem] bg-white flex justify-between relative z-[100] container" ref="navMenu">
+	<nav class="px-[3rem] py-[2.2rem] bg-white flex justify-between relative z-[100] container" ref="navMenu">
 		<img :src="logo" class="w-[15rem]" alt="logo easybank" />
 		<button type="button" @click="store.isOpenMenu = !store.isOpenMenu" aria-label="open close nav menu">
 			<img

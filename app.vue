@@ -1,8 +1,6 @@
 <template>
-	<div>
-		<NuxtLayout />
-		<NuxtPage />
-	</div>
+	<NuxtLayout />
+	<NuxtPage />
 </template>
 
 <script setup lang="ts"></script>
@@ -11,7 +9,6 @@
 @use '@/assets/sass/reset.scss';
 
 body {
- background-color: white;
+	background-color: white;
 }
-
 </style>
