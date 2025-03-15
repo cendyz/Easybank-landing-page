@@ -31,13 +31,13 @@
 					to="/"
 					v-for="(item, index) in linksData"
 					:key="index"
-					class="first-letter:uppercase text-[1.5rem] text-neutral-1"
+					class="first-letter:uppercase text-[1.5rem] text-neutral-1 lg:hover:text-black lg:transition-colors lg:relative lineHover"
 					>{{ item }}</NuxtLink
 				>
 			</div>
 			<button
 				type="button"
-				class="hidden lg:block capitalize bg-gradient-to-r from-primary-2 to-primary-3 text-neutral-4 px-[2.8rem] py-[1.1rem] rounded-full font-w700 text-[1.4rem]">
+				class="hidden lg:block capitalize bg-gradient-to-r from-primary-2 to-primary-3 text-neutral-4 px-[2.8rem] py-[1.1rem] rounded-full font-w700 text-[1.4rem] lg:hover:opacity-60 lg:transition-opacity">
 				request invite
 			</button>
 		</div>
@@ -83,5 +83,27 @@ watch(
 .v-enter-from,
 .v-leave-to {
 	opacity: 0;
+}
+@media (min-width: 1024px) {
+	.lineHover {
+		&::before {
+			content: '';
+			position: absolute;
+			bottom: -3.2rem;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 0%;
+			height: 3px;
+			background-color: hsl(136, 65%, 51%);
+			transition: width 0.2s;
+			transform-origin: center;
+		}
+
+		&:hover {
+			&::before {
+				width: 100%;
+			}
+		}
+	}
 }
 </style>

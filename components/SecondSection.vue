@@ -8,7 +8,9 @@
 					<div
 						class="p-[3rem] pb-[3.9rem mt-[-2.5rem] bg-neutral-4 z-[20] relative text-neutral-1 text-left grid gap-y-[1rem]">
 						<p class="text-[1.1rem] xl:text-[1.2rem]">{{ item.quote }}</p>
-						<h3 class="text-primary-1 xl:text-[1.8rem]">{{ item.title }}</h3>
+						<h3 class="text-primary-1 xl:text-[1.8rem] lg:hover:text-primary-2 lg:transition-colors lg:cursor-pointer lg:w-fit">
+							{{ item.title }}
+						</h3>
 						<p class="text-[1.3rem] xl:text-[1.35rem]">{{ item.desc }}</p>
 					</div>
 				</div>
