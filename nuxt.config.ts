@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
 	compatibilityDate: '2024-11-01',
 	devtools: { enabled: true },
-	modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxt/image'],
+	modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxt/image', '@vueuse/nuxt'],
 	app: {
 		head: {
 			title: 'Frontend Mentor',

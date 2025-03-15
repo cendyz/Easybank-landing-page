@@ -5,13 +5,13 @@
 			<img
 				:src="store.isOpenMenu ? closeMenu : hamburger"
 				:alt="store.isOpenMenu ? 'close menu' : 'open menu'"
-				class="h-[1.8rem] w-[2rem]"
+				class="h-[1.8rem] w-[2rem] lg:hidden"
 				:class="store.isOpenMenu ? 'w-[2rem]' : 'w-[2.8rem]'" />
 		</button>
 		<Transition>
 			<div
 				v-if="store.isOpenMenu"
-				class="absolute top-[9.5rem] w-[calc(100%-4.4rem)] justify-items-center bg-neutral-4 grid gap-y-[1.5rem] py-[3rem] rounded-md">
+				class="absolute top-[9.5rem] w-[calc(100%-4.4rem)] justify-items-center bg-neutral-4 grid gap-y-[1.5rem] py-[3rem] rounded-md lg:static">
 				<NuxtLink
 					to="/"
 					v-for="(item, index) in linksData"
@@ -25,7 +25,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { useWindowSize } from '@vueuse/core'
+import { ref, watch, computed } from 'vue'
 import { useBankStore } from '~/store/bank'
 import logo from '~/assets/images/logo.svg'
 import hamburger from '~/assets/images/icon-hamburger.svg'
@@ -33,6 +34,9 @@ import closeMenu from '~/assets/images/icon-close.svg'
 
 const store = useBankStore()
 const navMenu = ref()
+const { width } = useWindowSize()
+
+const isWider = computed(() => width.value >= 1024)
 
 const linksData = ref<string[]>(['home', 'about', 'contact', 'blog', 'careers'])
 
@@ -49,6 +53,17 @@ watch(
 			document.addEventListener('click', handleCloseOutside)
 		} else {
 			document.removeEventListener('click', handleCloseOutside)
+		}
+	}
+)
+
+watch(
+	() => isWider.value,
+	newValue => {
+		if (newValue) {
+			store.isOpenMenu = true
+		} else {
+			store.isOpenMenu = false
 		}
 	}
 )

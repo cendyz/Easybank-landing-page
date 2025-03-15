@@ -1,5 +1,5 @@
 <template>
-	<main class="container">
+	<main class="w-full">
 		<FirstSection />
 		<SecondSection />
 		<Footer />
