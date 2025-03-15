@@ -66,9 +66,9 @@ const _sfc_main$4 = /* @__PURE__ */ defineComponent({
       }
     ]);
     return (_ctx, _push, _parent, _attrs) => {
-      _push(`<section${ssrRenderAttrs(mergeProps({ class: "bg-neutral-2 py-[7rem] px-[2.2rem] text-center text-neutral-1 text-[1.5rem] md:text-[1.6rem] lg:text-left lg:z-[9] lg:relative lg:px-0" }, _attrs))}><div class="container lg:px-[3.5rem]"><h2 class="text-[3rem] leading-[1.2] mb-[2.2rem] px-[1rem] text-primary-1 md:text-[3.5rem] lg:px-0"> Why choose Easybank? </h2><p class="md:w-[38rem] md:mx-auto lg:w-[57rem] lg:mx-0"> We leverage Open Banking to turn your bank account into your financial hub. Control your finances like never before. </p><div class="mt-[7rem] grid gap-y-[3rem] lg:grid lg:grid-cols-2 lg:place-items-center lg:gap-y-[6rem] xl:gap-x-[2rem] xl:grid-cols-4 xl:place-items-start"><!--[-->`);
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "bg-neutral-2 py-[7rem] px-[2.2rem] text-center text-neutral-1 text-[1.5rem] md:text-[1.6rem] lg:text-left lg:z-[9] lg:relative lg:px-0" }, _attrs))}><div class="container lg:px-[3.5rem] xl:px-0"><h2 class="text-[3rem] leading-[1.2] mb-[2.2rem] px-[1rem] text-primary-1 md:text-[3.5rem] lg:px-0"> Why choose Easybank? </h2><p class="md:w-[38rem] md:mx-auto lg:w-[57rem] lg:mx-0"> We leverage Open Banking to turn your bank account into your financial hub. Control your finances like never before. </p><div class="mt-[7rem] grid gap-y-[3rem] lg:grid lg:grid-cols-2 lg:place-items-center lg:gap-y-[6rem] xl:gap-x-[2rem] xl:grid-cols-4 xl:place-items-start"><!--[-->`);
       ssrRenderList(profitsData.value, (item, index) => {
-        _push(`<div class="xl:w-[29rem]"><img${ssrRenderAttr("src", item.img)}${ssrRenderAttr("alt", item.title)} class="block mx-auto w-[7rem] md:w-[8rem] lg:mx-0"><h3 class="text-primary-1 text-[2rem] my-[2rem] md:text-[2.2rem]">${ssrInterpolate(item.title)}</h3><p class="md:w-[38rem] md:mx-auto lg:w-[26.5rem] lg:mx-0">${ssrInterpolate(item.desc)}</p></div>`);
+        _push(`<div class="xl:w-[29rem] xl:pl-[2rem]"><img${ssrRenderAttr("src", item.img)}${ssrRenderAttr("alt", item.title)} class="block mx-auto w-[7rem] md:w-[8rem] lg:mx-0"><h3 class="text-primary-1 text-[2rem] my-[2rem] md:text-[2.2rem]">${ssrInterpolate(item.title)}</h3><p class="md:w-[38rem] md:mx-auto lg:w-[26.5rem] lg:mx-0">${ssrInterpolate(item.desc)}</p></div>`);
       });
       _push(`<!--]--></div></div></section>`);
     };
@@ -118,7 +118,7 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
       }
     ]);
     return (_ctx, _push, _parent, _attrs) => {
-      _push(`<section${ssrRenderAttrs(mergeProps({ class: "bg-neutral-3 py-[7rem] px-[2.2rem]" }, _attrs))}><div class="text-center container xl:px-[3.5rem]"><h2 class="capitalize text-[3rem] md:text-[3.5rem]">latest articles</h2><div class="mt-[3rem] grid gap-y-[3rem] md:grid-cols-2 md:gap-[2rem] xl:grid-cols-4"><!--[-->`);
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "bg-neutral-3 py-[7rem] px-[2.2rem]" }, _attrs))}><div class="text-center container"><h2 class="capitalize text-[3rem] md:text-[3.5rem]">latest articles</h2><div class="mt-[3rem] grid gap-y-[3rem] md:grid-cols-2 md:gap-[2rem] xl:grid-cols-4"><!--[-->`);
       ssrRenderList(articlesData.value, (item, index) => {
         _push(`<div class="rounded-lg overflow-hidden"><img${ssrRenderAttr("src", item.img)}${ssrRenderAttr("alt", item.alt)} class="block h-[27rem] w-full z-[10]"><div class="p-[3rem] pb-[3.9rem mt-[-2.5rem] bg-neutral-4 z-[20] relative text-neutral-1 text-left grid gap-y-[1rem]"><p class="text-[1.1rem] xl:text-[1.2rem]">${ssrInterpolate(item.quote)}</p><h3 class="text-primary-1 xl:text-[1.8rem] lg:hover:text-primary-2 lg:transition-colors lg:cursor-pointer lg:w-fit">${ssrInterpolate(item.title)}</h3><p class="text-[1.3rem] xl:text-[1.35rem]">${ssrInterpolate(item.desc)}</p></div></div>`);
       });

@@ -1,7 +1,7 @@
 <template>
 	<section
 		class="bg-neutral-2 py-[7rem] px-[2.2rem] text-center text-neutral-1 text-[1.5rem] md:text-[1.6rem] lg:text-left lg:z-[9] lg:relative lg:px-0">
-		<div class="container lg:px-[3.5rem]">
+		<div class="container lg:px-[3.5rem] xl:px-0">
 			<h2 class="text-[3rem] leading-[1.2] mb-[2.2rem] px-[1rem] text-primary-1 md:text-[3.5rem] lg:px-0">
 				Why choose Easybank?
 			</h2>
@@ -11,7 +11,7 @@
 			</p>
 			<div
 				class="mt-[7rem] grid gap-y-[3rem] lg:grid lg:grid-cols-2 lg:place-items-center lg:gap-y-[6rem] xl:gap-x-[2rem] xl:grid-cols-4 xl:place-items-start">
-				<div v-for="(item, index) in profitsData" :key="index" class="xl:w-[29rem]">
+				<div v-for="(item, index) in profitsData" :key="index" class="xl:w-[29rem] xl:pl-[2rem]">
 					<img :src="item.img" :alt="item.title" class="block mx-auto w-[7rem] md:w-[8rem] lg:mx-0" />
 					<h3 class="text-primary-1 text-[2rem] my-[2rem] md:text-[2.2rem]">{{ item.title }}</h3>
 					<p class="md:w-[38rem] md:mx-auto lg:w-[26.5rem] lg:mx-0">

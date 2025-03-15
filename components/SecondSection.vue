@@ -1,6 +1,6 @@
 <template>
 	<section class="bg-neutral-3 py-[7rem] px-[2.2rem]">
-		<div class="text-center container xl:px-[3.5rem]">
+		<div class="text-center container">
 			<h2 class="capitalize text-[3rem] md:text-[3.5rem]">latest articles</h2>
 			<div class="mt-[3rem] grid gap-y-[3rem] md:grid-cols-2 md:gap-[2rem] xl:grid-cols-4">
 				<div class="rounded-lg overflow-hidden" v-for="(item, index) in articlesData" :key="index">
