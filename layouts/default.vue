@@ -1,10 +1,10 @@
 <template>
-	<nav class="p-[2.2rem] bg-white flex justify-between relative z-[100]" ref="navMenu">
-		<NuxtImg :src="logo" class="w-[15rem]" alt="logo easybank"></NuxtImg>
-		<button type="button" @click="store.isOpenMenu = !store.isOpenMenu">
-			<NuxtImg
+	<nav class="p-[2.2rem] bg-white flex justify-between relative z-[100] container" ref="navMenu">
+		<img :src="logo" class="w-[15rem]" alt="logo easybank" />
+		<button type="button" @click="store.isOpenMenu = !store.isOpenMenu" aria-label="open close nav menu">
+			<img
 				:src="store.isOpenMenu ? closeMenu : hamburger"
-				alt="nav menu open close"
+				:alt="store.isOpenMenu ? 'close menu' : 'open menu'"
 				class="h-[1.8rem] w-[2rem]"
 				:class="store.isOpenMenu ? 'w-[2rem]' : 'w-[2.8rem]'" />
 		</button>
@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, watch } from 'vue'
 import { useBankStore } from '~/store/bank'
 import logo from '~/assets/images/logo.svg'
 import hamburger from '~/assets/images/icon-hamburger.svg'
@@ -42,9 +42,16 @@ const handleCloseOutside = (e: Event): void => {
 	}
 }
 
-onMounted(() => {
-	document.addEventListener('click', handleCloseOutside)
-})
+watch(
+	() => store.isOpenMenu,
+	newValue => {
+		if (newValue) {
+			document.addEventListener('click', handleCloseOutside)
+		} else {
+			document.removeEventListener('click', handleCloseOutside)
+		}
+	}
+)
 </script>
 
 <style scoped lang="scss">
