@@ -16,4 +16,7 @@ export default defineNuxtConfig({
 			link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.ico?v2' }],
 		},
 	},
+	nitro: {
+		preset: 'static',
+	},
 })
