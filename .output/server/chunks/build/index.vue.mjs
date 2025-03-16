@@ -1,8 +1,11 @@
-import { defineComponent, mergeProps, unref, ref, useSSRContext } from 'vue';
-import { ssrRenderAttrs, ssrRenderAttr, ssrRenderList, ssrInterpolate, ssrRenderComponent } from 'vue/server-renderer';
-import { _ as _export_sfc } from './server.mjs';
+import { computed, defineComponent, useAttrs, ref, mergeProps, unref, useSSRContext } from 'vue';
+import { ssrRenderAttrs, ssrRenderSlot, ssrRenderAttr, ssrRenderComponent, ssrRenderList, ssrInterpolate } from 'vue/server-renderer';
+import { u as useNuxtApp, a as useRuntimeConfig, _ as _export_sfc } from './server.mjs';
 import { u as useBankStore } from './bank.mjs';
-import '../nitro/nitro.mjs';
+import { l as defu, r as withLeadingSlash, m as hasProtocol, n as joinURL, v as parseURL, x as encodePath, y as encodeParam, p as publicAssetsURL } from '../nitro/nitro.mjs';
+import { u as useHead } from './v3.mjs';
+import 'pinia';
+import 'vue-router';
 import 'node:http';
 import 'node:https';
 import 'node:events';
@@ -12,21 +15,620 @@ import 'node:path';
 import 'node:crypto';
 import 'node:url';
 import 'ipx';
-import 'pinia';
-import 'vue-router';
+import '../routes/renderer.mjs';
+import 'vue-bundle-renderer/runtime';
+import 'unhead/server';
+import 'unhead/utils';
+import 'devalue';
+import 'unhead/plugins';
 
-const mobileIntro = "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%20width='375'%20height='423'%3e%3cdefs%3e%3clinearGradient%20id='c'%20x1='0%25'%20x2='99.58%25'%20y1='36.139%25'%20y2='63.745%25'%3e%3cstop%20offset='0%25'%20stop-color='%2333D35E'/%3e%3cstop%20offset='100%25'%20stop-color='%232AB6D9'/%3e%3c/linearGradient%3e%3cfilter%20id='a'%20width='116.9%25'%20height='158.7%25'%20x='-10.8%25'%20y='-28.8%25'%20filterUnits='objectBoundingBox'%3e%3cfeOffset%20dy='2'%20in='SourceAlpha'%20result='shadowOffsetOuter1'/%3e%3cfeGaussianBlur%20in='shadowOffsetOuter1'%20result='shadowBlurOuter1'%20stdDeviation='38.5'/%3e%3cfeColorMatrix%20in='shadowBlurOuter1'%20values='0%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200.0240111451%200'/%3e%3c/filter%3e%3cpath%20id='b'%20d='M42.46%20162.61l70.744%2070.76a100%20100%200%200070.719%2029.298h11.03a100%20100%200%200170.719%2029.298l75.718%2075.736A100%20100%200%2000412.109%20397H633.78c27.507%200%2049.805-22.299%2049.805-49.805a49.805%2049.805%200%2000-14.583-35.213l-52.835-52.848c-7.359-7.36-7.357-19.294.003-26.653a18.846%2018.846%200%200113.325-5.518c10.408%200%2018.846-8.438%2018.846-18.846%200-4.997-1.985-9.79-5.518-13.325L534.747%2086.691a100%20100%200%2000-70.72-29.298H352.013a97.948%2097.948%200%2001-69.267-28.696A97.948%2097.948%200%2000213.477%200H84.94c-19.435%200-35.19%2015.755-35.19%2035.19a35.19%2035.19%200%200010.304%2024.88L77.65%2077.669c9.715%209.717%209.713%2025.47-.004%2035.185a24.88%2024.88%200%2001-17.59%207.285c-13.742%200-24.88%2011.14-24.88%2024.88a24.88%2024.88%200%20007.284%2017.59z'/%3e%3c/defs%3e%3cg%20fill='none'%20fill-rule='evenodd'%20transform='translate(-94%20-52)'%3e%3cuse%20fill='%23000'%20filter='url(%23a)'%20xlink:href='%23b'/%3e%3cuse%20fill='%232D314D'%20xlink:href='%23b'/%3e%3cpath%20fill='url(%23c)'%20d='M256.46%20163.61l70.744%2070.76a100%20100%200%200070.719%2029.298h11.03a100%20100%200%200170.719%2029.298l75.718%2075.736A100%20100%200%2000626.109%20398H847.78c27.507%200%2049.805-22.299%2049.805-49.805a49.805%2049.805%200%2000-14.583-35.213l-52.835-52.848c-7.359-7.36-7.357-19.294.003-26.653a18.846%2018.846%200%200113.325-5.518c10.408%200%2018.846-8.438%2018.846-18.846%200-4.997-1.985-9.79-5.518-13.325L748.747%2087.691a100%20100%200%2000-70.72-29.298H566.013a97.948%2097.948%200%2001-69.267-28.696A97.948%2097.948%200%2000427.477%201H298.94c-19.435%200-35.19%2015.755-35.19%2035.19a35.19%2035.19%200%200010.304%2024.88l17.595%2017.599c9.715%209.717%209.713%2025.47-.004%2035.185a24.88%2024.88%200%2001-17.59%207.285c-13.742%200-24.88%2011.14-24.88%2024.88a24.88%2024.88%200%20007.284%2017.59z'/%3e%3c/g%3e%3c/svg%3e";
+async function imageMeta(_ctx, url) {
+  const meta = await _imageMeta(url).catch((err) => {
+    console.error("Failed to get image meta for " + url, err + "");
+    return {
+      width: 0,
+      height: 0,
+      ratio: 0
+    };
+  });
+  return meta;
+}
+async function _imageMeta(url) {
+  {
+    const imageMeta2 = await import('image-meta').then((r) => r.imageMeta);
+    const data = await fetch(url).then((res) => res.buffer());
+    const metadata = imageMeta2(data);
+    if (!metadata) {
+      throw new Error(`No metadata could be extracted from the image \`${url}\`.`);
+    }
+    const { width, height } = metadata;
+    const meta = {
+      width,
+      height,
+      ratio: width && height ? width / height : void 0
+    };
+    return meta;
+  }
+}
 
-const desktopIntro = "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%20width='1271'%20height='1034'%3e%3cdefs%3e%3clinearGradient%20id='c'%20x1='0%25'%20x2='99.58%25'%20y1='36.147%25'%20y2='63.736%25'%3e%3cstop%20offset='0%25'%20stop-color='%2333D35E'/%3e%3cstop%20offset='100%25'%20stop-color='%232AB6D9'/%3e%3c/linearGradient%3e%3cfilter%20id='a'%20width='104.9%25'%20height='135.9%25'%20x='-4.8%25'%20y='-17.6%25'%20filterUnits='objectBoundingBox'%3e%3cfeOffset%20dy='2'%20in='SourceAlpha'%20result='shadowOffsetOuter1'/%3e%3cfeGaussianBlur%20in='shadowOffsetOuter1'%20result='shadowBlurOuter1'%20stdDeviation='38.5'/%3e%3cfeColorMatrix%20in='shadowBlurOuter1'%20values='0%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200.0240111451%200'/%3e%3c/filter%3e%3cpath%20id='b'%20d='M69.445%20572.84L203.73%20707.112a100%20100%200%200070.708%2029.286h70.693a100%20100%200%200170.708%2029.287l161.04%20161.027A100%20100%200%2000647.584%20956h388.853c44.964%200%2081.415-36.45%2081.415-81.414a81.414%2081.414%200%2000-23.848-57.57l-86.392-86.386c-12.033-12.032-12.034-31.54-.002-43.574a30.812%2030.812%200%200121.788-9.025c17.017%200%2030.812-13.795%2030.812-30.812%200-8.172-3.246-16.01-9.025-21.788L855.85%20430.11a100%20100%200%2000-70.708-29.287H550.7a100%20100%200%2001-70.708-29.287l-35.253-35.25A100%20100%200%2000374.032%20307H138.88c-31.769%200-57.523%2025.754-57.523%2057.523a57.523%2057.523%200%200016.85%2040.676l28.761%2028.76c15.886%2015.884%2015.887%2041.64.003%2057.525a40.676%2040.676%200%2001-28.764%2011.915c-22.465%200-40.677%2018.211-40.677%2040.676a40.676%2040.676%200%200011.915%2028.764z'/%3e%3c/defs%3e%3cg%20fill='none'%20fill-rule='evenodd'%20transform='translate(15)'%3e%3cuse%20fill='%23000'%20filter='url(%23a)'%20xlink:href='%23b'/%3e%3cuse%20fill='%232D314D'%20xlink:href='%23b'/%3e%3cpath%20fill='url(%23c)'%20d='M207.445%20265.84L341.73%20400.112a100%20100%200%200070.708%2029.286h70.693a100%20100%200%200170.708%2029.287l161.04%20161.027A100%20100%200%2000785.584%20649h388.853c44.964%200%2081.415-36.45%2081.415-81.414a81.414%2081.414%200%2000-23.848-57.57l-86.392-86.386c-12.033-12.032-12.034-31.54-.002-43.574a30.812%2030.812%200%200121.788-9.025c17.017%200%2030.812-13.795%2030.812-30.812%200-8.172-3.246-16.01-9.025-21.788L993.85%20123.11a100%20100%200%2000-70.708-29.287H688.7a100%20100%200%2001-70.708-29.287l-35.253-35.25A100%20100%200%2000512.032%200H276.88c-31.769%200-57.523%2025.754-57.523%2057.523a57.523%2057.523%200%200016.85%2040.676l28.761%2028.76c15.886%2015.884%2015.887%2041.64.003%2057.525a40.676%2040.676%200%2001-28.764%2011.915c-22.465%200-40.677%2018.211-40.677%2040.676a40.676%2040.676%200%200011.915%2028.764z'/%3e%3c/g%3e%3c/svg%3e";
+function createMapper(map) {
+  return (key) => {
+    return key ? map[key] || key : map.missingValue;
+  };
+}
+function createOperationsGenerator({ formatter, keyMap, joinWith = "/", valueMap } = {}) {
+  if (!formatter) {
+    formatter = (key, value) => `${key}=${value}`;
+  }
+  if (keyMap && typeof keyMap !== "function") {
+    keyMap = createMapper(keyMap);
+  }
+  const map = valueMap || {};
+  Object.keys(map).forEach((valueKey) => {
+    if (typeof map[valueKey] !== "function") {
+      map[valueKey] = createMapper(map[valueKey]);
+    }
+  });
+  return (modifiers = {}) => {
+    const operations = Object.entries(modifiers).filter(([_, value]) => typeof value !== "undefined").map(([key, value]) => {
+      const mapper = map[key];
+      if (typeof mapper === "function") {
+        value = mapper(modifiers[key]);
+      }
+      key = typeof keyMap === "function" ? keyMap(key) : key;
+      return formatter(key, value);
+    });
+    return operations.join(joinWith);
+  };
+}
+function parseSize(input = "") {
+  if (typeof input === "number") {
+    return input;
+  }
+  if (typeof input === "string") {
+    if (input.replace("px", "").match(/^\d+$/g)) {
+      return Number.parseInt(input, 10);
+    }
+  }
+}
+function parseDensities(input = "") {
+  if (input === void 0 || !input.length) {
+    return [];
+  }
+  const densities = /* @__PURE__ */ new Set();
+  for (const density of input.split(" ")) {
+    const d = Number.parseInt(density.replace("x", ""));
+    if (d) {
+      densities.add(d);
+    }
+  }
+  return Array.from(densities);
+}
+function checkDensities(densities) {
+  if (densities.length === 0) {
+    throw new Error("`densities` must not be empty, configure to `1` to render regular size only (DPR 1.0)");
+  }
+}
+function parseSizes(input) {
+  const sizes = {};
+  if (typeof input === "string") {
+    for (const entry of input.split(/[\s,]+/).filter((e) => e)) {
+      const s = entry.split(":");
+      if (s.length !== 2) {
+        sizes["1px"] = s[0].trim();
+      } else {
+        sizes[s[0].trim()] = s[1].trim();
+      }
+    }
+  } else {
+    Object.assign(sizes, input);
+  }
+  return sizes;
+}
 
-const phones = "" + __buildAssetsURL("image-mockups.Ci_U7FTV.png");
+function createImage(globalOptions) {
+  const ctx = {
+    options: globalOptions
+  };
+  const getImage = (input, options = {}) => {
+    const image = resolveImage(ctx, input, options);
+    return image;
+  };
+  const $img = (input, modifiers = {}, options = {}) => {
+    return getImage(input, {
+      ...options,
+      modifiers: defu(modifiers, options.modifiers || {})
+    }).url;
+  };
+  for (const presetName in globalOptions.presets) {
+    $img[presetName] = (source, modifiers, options) => $img(source, modifiers, { ...globalOptions.presets[presetName], ...options });
+  }
+  $img.options = globalOptions;
+  $img.getImage = getImage;
+  $img.getMeta = (input, options) => getMeta(ctx, input, options);
+  $img.getSizes = (input, options) => getSizes(ctx, input, options);
+  ctx.$img = $img;
+  return $img;
+}
+async function getMeta(ctx, input, options) {
+  const image = resolveImage(ctx, input, { ...options });
+  if (typeof image.getMeta === "function") {
+    return await image.getMeta();
+  } else {
+    return await imageMeta(ctx, image.url);
+  }
+}
+function resolveImage(ctx, input, options) {
+  var _a, _b;
+  if (input && typeof input !== "string") {
+    throw new TypeError(`input must be a string (received ${typeof input}: ${JSON.stringify(input)})`);
+  }
+  if (!input || input.startsWith("data:")) {
+    return {
+      url: input
+    };
+  }
+  const { provider, defaults } = getProvider(ctx, options.provider || ctx.options.provider);
+  const preset = getPreset(ctx, options.preset);
+  input = hasProtocol(input) ? input : withLeadingSlash(input);
+  if (!provider.supportsAlias) {
+    for (const base in ctx.options.alias) {
+      if (input.startsWith(base)) {
+        const alias = ctx.options.alias[base];
+        if (alias) {
+          input = joinURL(alias, input.slice(base.length));
+        }
+      }
+    }
+  }
+  if (provider.validateDomains && hasProtocol(input)) {
+    const inputHost = parseURL(input).host;
+    if (!ctx.options.domains.find((d) => d === inputHost)) {
+      return {
+        url: input
+      };
+    }
+  }
+  const _options = defu(options, preset, defaults);
+  _options.modifiers = { ..._options.modifiers };
+  const expectedFormat = _options.modifiers.format;
+  if ((_a = _options.modifiers) == null ? void 0 : _a.width) {
+    _options.modifiers.width = parseSize(_options.modifiers.width);
+  }
+  if ((_b = _options.modifiers) == null ? void 0 : _b.height) {
+    _options.modifiers.height = parseSize(_options.modifiers.height);
+  }
+  const image = provider.getImage(input, _options, ctx);
+  image.format = image.format || expectedFormat || "";
+  return image;
+}
+function getProvider(ctx, name) {
+  const provider = ctx.options.providers[name];
+  if (!provider) {
+    throw new Error("Unknown provider: " + name);
+  }
+  return provider;
+}
+function getPreset(ctx, name) {
+  if (!name) {
+    return {};
+  }
+  if (!ctx.options.presets[name]) {
+    throw new Error("Unknown preset: " + name);
+  }
+  return ctx.options.presets[name];
+}
+function getSizes(ctx, input, opts) {
+  var _a, _b, _c, _d, _e;
+  const width = parseSize((_a = opts.modifiers) == null ? void 0 : _a.width);
+  const height = parseSize((_b = opts.modifiers) == null ? void 0 : _b.height);
+  const sizes = parseSizes(opts.sizes);
+  const densities = ((_c = opts.densities) == null ? void 0 : _c.trim()) ? parseDensities(opts.densities.trim()) : ctx.options.densities;
+  checkDensities(densities);
+  const hwRatio = width && height ? height / width : 0;
+  const sizeVariants = [];
+  const srcsetVariants = [];
+  if (Object.keys(sizes).length >= 1) {
+    for (const key in sizes) {
+      const variant = getSizesVariant(key, String(sizes[key]), height, hwRatio, ctx);
+      if (variant === void 0) {
+        continue;
+      }
+      sizeVariants.push({
+        size: variant.size,
+        screenMaxWidth: variant.screenMaxWidth,
+        media: `(max-width: ${variant.screenMaxWidth}px)`
+      });
+      for (const density of densities) {
+        srcsetVariants.push({
+          width: variant._cWidth * density,
+          src: getVariantSrc(ctx, input, opts, variant, density)
+        });
+      }
+    }
+    finaliseSizeVariants(sizeVariants);
+  } else {
+    for (const density of densities) {
+      const key = Object.keys(sizes)[0];
+      let variant = key ? getSizesVariant(key, String(sizes[key]), height, hwRatio, ctx) : void 0;
+      if (variant === void 0) {
+        variant = {
+          size: "",
+          screenMaxWidth: 0,
+          _cWidth: (_d = opts.modifiers) == null ? void 0 : _d.width,
+          _cHeight: (_e = opts.modifiers) == null ? void 0 : _e.height
+        };
+      }
+      srcsetVariants.push({
+        width: density,
+        src: getVariantSrc(ctx, input, opts, variant, density)
+      });
+    }
+  }
+  finaliseSrcsetVariants(srcsetVariants);
+  const defaultVariant = srcsetVariants[srcsetVariants.length - 1];
+  const sizesVal = sizeVariants.length ? sizeVariants.map((v) => `${v.media ? v.media + " " : ""}${v.size}`).join(", ") : void 0;
+  const suffix = sizesVal ? "w" : "x";
+  const srcsetVal = srcsetVariants.map((v) => `${v.src} ${v.width}${suffix}`).join(", ");
+  return {
+    sizes: sizesVal,
+    srcset: srcsetVal,
+    src: defaultVariant == null ? void 0 : defaultVariant.src
+  };
+}
+function getSizesVariant(key, size, height, hwRatio, ctx) {
+  const screenMaxWidth = ctx.options.screens && ctx.options.screens[key] || Number.parseInt(key);
+  const isFluid = size.endsWith("vw");
+  if (!isFluid && /^\d+$/.test(size)) {
+    size = size + "px";
+  }
+  if (!isFluid && !size.endsWith("px")) {
+    return void 0;
+  }
+  let _cWidth = Number.parseInt(size);
+  if (!screenMaxWidth || !_cWidth) {
+    return void 0;
+  }
+  if (isFluid) {
+    _cWidth = Math.round(_cWidth / 100 * screenMaxWidth);
+  }
+  const _cHeight = hwRatio ? Math.round(_cWidth * hwRatio) : height;
+  return {
+    size,
+    screenMaxWidth,
+    _cWidth,
+    _cHeight
+  };
+}
+function getVariantSrc(ctx, input, opts, variant, density) {
+  return ctx.$img(
+    input,
+    {
+      ...opts.modifiers,
+      width: variant._cWidth ? variant._cWidth * density : void 0,
+      height: variant._cHeight ? variant._cHeight * density : void 0
+    },
+    opts
+  );
+}
+function finaliseSizeVariants(sizeVariants) {
+  var _a;
+  sizeVariants.sort((v1, v2) => v1.screenMaxWidth - v2.screenMaxWidth);
+  let previousMedia = null;
+  for (let i = sizeVariants.length - 1; i >= 0; i--) {
+    const sizeVariant = sizeVariants[i];
+    if (sizeVariant.media === previousMedia) {
+      sizeVariants.splice(i, 1);
+    }
+    previousMedia = sizeVariant.media;
+  }
+  for (let i = 0; i < sizeVariants.length; i++) {
+    sizeVariants[i].media = ((_a = sizeVariants[i + 1]) == null ? void 0 : _a.media) || "";
+  }
+}
+function finaliseSrcsetVariants(srcsetVariants) {
+  srcsetVariants.sort((v1, v2) => v1.width - v2.width);
+  let previousWidth = null;
+  for (let i = srcsetVariants.length - 1; i >= 0; i--) {
+    const sizeVariant = srcsetVariants[i];
+    if (sizeVariant.width === previousWidth) {
+      srcsetVariants.splice(i, 1);
+    }
+    previousWidth = sizeVariant.width;
+  }
+}
+
+const operationsGenerator = createOperationsGenerator({
+  keyMap: {
+    format: "f",
+    fit: "fit",
+    width: "w",
+    height: "h",
+    resize: "s",
+    quality: "q",
+    background: "b"
+  },
+  joinWith: "&",
+  formatter: (key, val) => encodeParam(key) + "_" + encodeParam(val)
+});
+const getImage = (src, { modifiers = {}, baseURL } = {}, ctx) => {
+  if (modifiers.width && modifiers.height) {
+    modifiers.resize = `${modifiers.width}x${modifiers.height}`;
+    delete modifiers.width;
+    delete modifiers.height;
+  }
+  const params = operationsGenerator(modifiers) || "_";
+  if (!baseURL) {
+    baseURL = joinURL(ctx.options.nuxt.baseURL, "/_ipx");
+  }
+  return {
+    url: joinURL(baseURL, params, encodePath(src))
+  };
+};
+const validateDomains = true;
+const supportsAlias = true;
+
+const ipx = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  getImage: getImage,
+  supportsAlias: supportsAlias,
+  validateDomains: validateDomains
+});
+
+const imageOptions = {
+  "screens": {
+    "xs": 320,
+    "sm": 640,
+    "md": 768,
+    "lg": 1024,
+    "xl": 1280,
+    "xxl": 1536,
+    "2xl": 1536
+  },
+  "presets": {},
+  "provider": "ipx",
+  "domains": [],
+  "alias": {},
+  "densities": [
+    1,
+    2
+  ],
+  "format": [
+    "webp"
+  ]
+};
+imageOptions.providers = {
+  ["ipx"]: { provider: ipx, defaults: {} }
+};
+
+const useImage = () => {
+  const config = useRuntimeConfig();
+  const nuxtApp = useNuxtApp();
+  return nuxtApp.$img || nuxtApp._img || (nuxtApp._img = createImage({
+    ...imageOptions,
+    nuxt: {
+      baseURL: config.app.baseURL
+    },
+    runtimeConfig: config
+  }));
+};
+
+const baseImageProps = {
+  // input source
+  src: { type: String, required: false },
+  // modifiers
+  format: { type: String, required: false },
+  quality: { type: [Number, String], required: false },
+  background: { type: String, required: false },
+  fit: { type: String, required: false },
+  modifiers: { type: Object, required: false },
+  // options
+  preset: { type: String, required: false },
+  provider: { type: String, required: false },
+  sizes: { type: [Object, String], required: false },
+  densities: { type: String, required: false },
+  preload: {
+    type: [Boolean, Object],
+    required: false
+  },
+  // <img> attributes
+  width: { type: [String, Number], required: false },
+  height: { type: [String, Number], required: false },
+  alt: { type: String, required: false },
+  referrerpolicy: { type: String, required: false },
+  usemap: { type: String, required: false },
+  longdesc: { type: String, required: false },
+  ismap: { type: Boolean, required: false },
+  loading: {
+    type: String,
+    required: false,
+    validator: (val) => ["lazy", "eager"].includes(val)
+  },
+  crossorigin: {
+    type: [Boolean, String],
+    required: false,
+    validator: (val) => ["anonymous", "use-credentials", "", true, false].includes(val)
+  },
+  decoding: {
+    type: String,
+    required: false,
+    validator: (val) => ["async", "auto", "sync"].includes(val)
+  },
+  // csp
+  nonce: { type: [String], required: false }
+};
+const useBaseImage = (props) => {
+  const options = computed(() => {
+    return {
+      provider: props.provider,
+      preset: props.preset
+    };
+  });
+  const attrs = computed(() => {
+    return {
+      width: parseSize(props.width),
+      height: parseSize(props.height),
+      alt: props.alt,
+      referrerpolicy: props.referrerpolicy,
+      usemap: props.usemap,
+      longdesc: props.longdesc,
+      ismap: props.ismap,
+      crossorigin: props.crossorigin === true ? "anonymous" : props.crossorigin || void 0,
+      loading: props.loading,
+      decoding: props.decoding,
+      nonce: props.nonce
+    };
+  });
+  const $img = useImage();
+  const modifiers = computed(() => {
+    return {
+      ...props.modifiers,
+      width: parseSize(props.width),
+      height: parseSize(props.height),
+      format: props.format,
+      quality: props.quality || $img.options.quality,
+      background: props.background,
+      fit: props.fit
+    };
+  });
+  return {
+    options,
+    attrs,
+    modifiers
+  };
+};
+const imgProps = {
+  ...baseImageProps,
+  placeholder: { type: [Boolean, String, Number, Array], required: false },
+  placeholderClass: { type: String, required: false },
+  custom: { type: Boolean, required: false }
+};
+
+const _sfc_main$6 = /* @__PURE__ */ defineComponent({
+  __name: "NuxtImg",
+  __ssrInlineRender: true,
+  props: imgProps,
+  emits: ["load", "error"],
+  setup(__props, { emit: __emit }) {
+    const props = __props;
+    const attrs = useAttrs();
+    const isServer = true;
+    const $img = useImage();
+    const _base = useBaseImage(props);
+    const placeholderLoaded = ref(false);
+    const imgEl = ref();
+    const sizes = computed(() => $img.getSizes(props.src, {
+      ..._base.options.value,
+      sizes: props.sizes,
+      densities: props.densities,
+      modifiers: {
+        ..._base.modifiers.value,
+        width: parseSize(props.width),
+        height: parseSize(props.height)
+      }
+    }));
+    const imgAttrs = computed(() => {
+      const attrs2 = { ..._base.attrs.value, "data-nuxt-img": "" };
+      if (!props.placeholder || placeholderLoaded.value) {
+        attrs2.sizes = sizes.value.sizes;
+        attrs2.srcset = sizes.value.srcset;
+      }
+      return attrs2;
+    });
+    const placeholder = computed(() => {
+      let placeholder2 = props.placeholder;
+      if (placeholder2 === "") {
+        placeholder2 = true;
+      }
+      if (!placeholder2 || placeholderLoaded.value) {
+        return false;
+      }
+      if (typeof placeholder2 === "string") {
+        return placeholder2;
+      }
+      const size = Array.isArray(placeholder2) ? placeholder2 : typeof placeholder2 === "number" ? [placeholder2, placeholder2] : [10, 10];
+      return $img(props.src, {
+        ..._base.modifiers.value,
+        width: size[0],
+        height: size[1],
+        quality: size[2] || 50,
+        blur: size[3] || 3
+      }, _base.options.value);
+    });
+    const mainSrc = computed(
+      () => props.sizes ? sizes.value.src : $img(props.src, _base.modifiers.value, _base.options.value)
+    );
+    const src = computed(() => placeholder.value ? placeholder.value : mainSrc.value);
+    if (props.preload) {
+      const isResponsive = Object.values(sizes.value).every((v) => v);
+      useHead({
+        link: [{
+          rel: "preload",
+          as: "image",
+          nonce: props.nonce,
+          ...!isResponsive ? { href: src.value } : {
+            href: sizes.value.src,
+            imagesizes: sizes.value.sizes,
+            imagesrcset: sizes.value.srcset
+          },
+          ...typeof props.preload !== "boolean" && props.preload.fetchPriority ? { fetchpriority: props.preload.fetchPriority } : {}
+        }]
+      });
+    }
+    const nuxtApp = useNuxtApp();
+    nuxtApp.isHydrating;
+    return (_ctx, _push, _parent, _attrs) => {
+      if (!_ctx.custom) {
+        _push(`<img${ssrRenderAttrs(mergeProps({
+          ref_key: "imgEl",
+          ref: imgEl,
+          class: props.placeholder && !placeholderLoaded.value ? props.placeholderClass : void 0
+        }, {
+          ...unref(isServer) ? { onerror: "this.setAttribute('data-error', 1)" } : {},
+          ...imgAttrs.value,
+          ...unref(attrs)
+        }, { src: src.value }, _attrs))}>`);
+      } else {
+        ssrRenderSlot(_ctx.$slots, "default", {
+          ...unref(isServer) ? { onerror: "this.setAttribute('data-error', 1)" } : {},
+          imgAttrs: {
+            ...imgAttrs.value,
+            ...unref(attrs)
+          },
+          isLoaded: placeholderLoaded.value,
+          src: src.value
+        }, null, _push, _parent);
+      }
+    };
+  }
+});
+
+const mobileIntro = publicAssetsURL("/img/bg-intro-mobile.svg");
+
+const desktopIntro = publicAssetsURL("/img/bg-intro-desktop.svg");
+
+const phones = publicAssetsURL("/img/image-mockups.png");
 
 const _sfc_main$5 = /* @__PURE__ */ defineComponent({
   __name: "Header",
   __ssrInlineRender: true,
   setup(__props) {
     return (_ctx, _push, _parent, _attrs) => {
-      _push(`<header${ssrRenderAttrs(mergeProps({ class: "pb-[10rem] bg-neutral-3 lg:overflow-x-clip lg:pb-0" }, _attrs))}><div class="lg:container relative text-center lg:flex lg:px-[3.5rem] xl:px-0"><picture><source${ssrRenderAttr("srcset", unref(desktopIntro))} media="(min-width: 1024px)"><img${ssrRenderAttr("src", unref(mobileIntro))} alt="" aria-hidden="true" class="block w-full lg:absolute lg:left-[50rem] xl:left-[55rem] lg:top-[-20rem] xl:top-[-26rem] lg:z-[0]"></picture><img${ssrRenderAttr("src", unref(phones))} alt="4 phones" class="block w-[calc(100%-3rem)] absolute top-[-7rem] left-1/2 translate-x-[-50%] md:w-[70%] md:top-[5rem] lg:w-[65rem] xl:w-[70rem] lg:left-[91rem] xl:left-[119.9rem] lg:top-[-10.5rem] lg:z-[20]"><div class="lg:py-[12rem] lg:text-left"><h1 class="text-[4rem] leading-[1.1] mt-[-3rem] mb-[3rem] text-primary-1 md:text-[5rem] md:w-[40rem] md:mx-auto lg:mt-0 lg:mx-0 lg:text-[6.5rem] lg:w-[50rem]"> Next generation digital banking </h1><p class="text-[1.5rem] px-[1rem] text-neutral-1 md:text-[1.7rem] md:w-[47rem] md:mx-auto lg:mx-0 lg:px-0 lg:text-[1.82rem]"> Take your financial life online. Your Easybank account will be a one-stop-shop for spending, saving, budgeting, investing, and much more. </p><button type="button" class="capitalize mt-[4rem] bg-gradient-to-r from-primary-2 to-primary-3 text-neutral-4 px-[2.8rem] py-[1.1rem] rounded-full font-w700 text-[1.4rem] md:text-[1.6rem] lg:hover:opacity-60 lg:transition-opacity"> request invite </button></div></div></header>`);
+      const _component_NuxtImg = _sfc_main$6;
+      _push(`<header${ssrRenderAttrs(mergeProps({ class: "pb-[10rem] bg-neutral-3 lg:overflow-x-clip lg:pb-0" }, _attrs))}><div class="lg:container relative text-center lg:flex lg:px-[3.5rem] xl:px-0"><picture><source${ssrRenderAttr("srcset", unref(desktopIntro))} media="(min-width: 1024px)">`);
+      _push(ssrRenderComponent(_component_NuxtImg, {
+        src: unref(mobileIntro),
+        alt: "",
+        "aria-hidden": "true",
+        class: "block w-full lg:absolute lg:left-[50rem] xl:left-[55rem] lg:top-[-20rem] xl:top-[-26rem] lg:z-[0]"
+      }, null, _parent));
+      _push(`</picture>`);
+      _push(ssrRenderComponent(_component_NuxtImg, {
+        src: unref(phones),
+        alt: "4 phones",
+        class: "block w-[calc(100%-3rem)] absolute top-[-7rem] left-1/2 translate-x-[-50%] md:w-[70%] md:top-[5rem] lg:w-[65rem] xl:w-[70rem] lg:left-[91rem] xl:left-[119.9rem] lg:top-[-10.5rem] lg:z-[20]"
+      }, null, _parent));
+      _push(`<div class="lg:py-[12rem] lg:text-left"><h1 class="text-[4rem] leading-[1.1] mt-[-3rem] mb-[3rem] text-primary-1 md:text-[5rem] md:w-[40rem] md:mx-auto lg:mt-0 lg:mx-0 lg:text-[6.5rem] lg:w-[50rem]"> Next generation digital banking </h1><p class="text-[1.5rem] px-[1rem] text-neutral-1 md:text-[1.7rem] md:w-[47rem] md:mx-auto lg:mx-0 lg:px-0 lg:text-[1.82rem]"> Take your financial life online. Your Easybank account will be a one-stop-shop for spending, saving, budgeting, investing, and much more. </p><button type="button" class="capitalize mt-[4rem] bg-gradient-to-r from-primary-2 to-primary-3 text-neutral-4 px-[2.8rem] py-[1.1rem] rounded-full font-w700 text-[1.4rem] md:text-[1.6rem] lg:hover:opacity-60 lg:transition-opacity"> request invite </button></div></div></header>`);
     };
   }
 });
@@ -68,20 +670,20 @@ const _sfc_main$4 = /* @__PURE__ */ defineComponent({
     return (_ctx, _push, _parent, _attrs) => {
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "bg-neutral-2 py-[7rem] px-[2.2rem] text-center text-neutral-1 text-[1.5rem] md:text-[1.6rem] lg:text-left lg:z-[9] lg:relative lg:px-0" }, _attrs))}><div class="container lg:px-[3.5rem] xl:px-0"><h2 class="text-[3rem] leading-[1.2] mb-[2.2rem] px-[1rem] text-primary-1 md:text-[3.5rem] lg:px-0"> Why choose Easybank? </h2><p class="md:w-[38rem] md:mx-auto lg:w-[57rem] lg:mx-0"> We leverage Open Banking to turn your bank account into your financial hub. Control your finances like never before. </p><div class="mt-[7rem] grid gap-y-[3rem] lg:grid lg:grid-cols-2 lg:place-items-center lg:gap-y-[6rem] xl:flex xl:gap-x-[5%]"><!--[-->`);
       ssrRenderList(profitsData.value, (item, index) => {
-        _push(`<div class="xl:w-[23%]"><img${ssrRenderAttr("src", item.img)}${ssrRenderAttr("alt", item.title)} class="block mx-auto w-[7rem] md:w-[8rem] lg:mx-0"><h3 class="text-primary-1 text-[2rem] my-[2rem] md:text-[2.2rem]">${ssrInterpolate(item.title)}</h3><p class="md:w-[38rem] md:mx-auto lg:w-[26.5rem] lg:mx-0">${ssrInterpolate(item.desc)}</p></div>`);
+        _push(`<div class="xl:w-[23%]"><img${ssrRenderAttr("src", item.img)}${ssrRenderAttr("alt", item.title)} class="block mx-auto w-[7rem] h-[7rem] md:w-[8rem] md:h-[8rem] lg:mx-0"><h3 class="text-primary-1 text-[2rem] my-[2rem] md:text-[2.2rem]">${ssrInterpolate(item.title)}</h3><p class="md:w-[38rem] md:mx-auto lg:w-[26.5rem] lg:mx-0">${ssrInterpolate(item.desc)}</p></div>`);
       });
       _push(`<!--]--></div></div></section>`);
     };
   }
 });
 
-const img1 = "" + __buildAssetsURL("image-currency.fQkhky90.jpg");
+const img1 = publicAssetsURL("/img/image-currency.jpg");
 
-const img2 = "" + __buildAssetsURL("image-restaurant.Djjssr-y.jpg");
+const img2 = publicAssetsURL("/img/image-restaurant.jpg");
 
-const img3 = "" + __buildAssetsURL("image-plane.CXMVhojA.jpg");
+const img3 = publicAssetsURL("/img/image-plane.jpg");
 
-const img4 = "" + __buildAssetsURL("image-confetti.8wpdFRL8.jpg");
+const img4 = publicAssetsURL("/img/image-confetti.jpg");
 
 const _sfc_main$3 = /* @__PURE__ */ defineComponent({
   __name: "SecondSection",
@@ -118,9 +720,16 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
       }
     ]);
     return (_ctx, _push, _parent, _attrs) => {
+      const _component_NuxtImg = _sfc_main$6;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "bg-neutral-3 py-[7rem] px-[2.2rem]" }, _attrs))}><div class="text-center container"><h2 class="capitalize text-[3rem] md:text-[3.5rem]">latest articles</h2><div class="mt-[3rem] grid gap-y-[3rem] md:grid-cols-2 md:gap-[2rem] xl:grid-cols-4"><!--[-->`);
       ssrRenderList(articlesData.value, (item, index) => {
-        _push(`<div class="rounded-lg overflow-hidden"><img${ssrRenderAttr("src", item.img)}${ssrRenderAttr("alt", item.alt)} class="block h-[27rem] w-full z-[10]"><div class="p-[3rem] pb-[3.9rem mt-[-2.5rem] bg-neutral-4 z-[20] relative text-neutral-1 text-left grid gap-y-[1rem]"><p class="text-[1.1rem] xl:text-[1.2rem]">${ssrInterpolate(item.quote)}</p><h3 class="text-primary-1 xl:text-[1.8rem] lg:hover:text-primary-2 lg:transition-colors lg:cursor-pointer lg:w-fit">${ssrInterpolate(item.title)}</h3><p class="text-[1.3rem] xl:text-[1.35rem]">${ssrInterpolate(item.desc)}</p></div></div>`);
+        _push(`<div class="rounded-lg overflow-hidden">`);
+        _push(ssrRenderComponent(_component_NuxtImg, {
+          src: item.img,
+          alt: item.alt,
+          class: "block h-[27rem] w-full z-[10]"
+        }, null, _parent));
+        _push(`<div class="p-[3rem] pb-[3.9rem mt-[-2.5rem] bg-neutral-4 z-[20] relative text-neutral-1 text-left grid gap-y-[1rem]"><p class="text-[1.1rem] xl:text-[1.2rem]">${ssrInterpolate(item.quote)}</p><h3 class="text-primary-1 xl:text-[1.8rem] lg:hover:text-primary-2 lg:transition-colors lg:cursor-pointer lg:w-fit">${ssrInterpolate(item.title)}</h3><p class="text-[1.3rem] xl:text-[1.35rem]">${ssrInterpolate(item.desc)}</p></div></div>`);
       });
       _push(`<!--]--></div></div></section>`);
     };

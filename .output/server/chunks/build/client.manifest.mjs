@@ -1,33 +1,33 @@
 const client_manifest = {
-  "_BKQE_nRz.js": {
+  "_BTDoHQib.js": {
     "resourceType": "script",
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "BKQE_nRz.js",
-    "name": "v3",
+    "file": "BTDoHQib.js",
+    "name": "bank",
     "imports": [
       "node_modules/nuxt/dist/app/entry.js"
     ]
   },
-  "_DDstcu13.js": {
+  "_By164PBy.js": {
     "resourceType": "script",
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "DDstcu13.js",
+    "file": "By164PBy.js",
     "name": "nuxt-link",
     "imports": [
       "node_modules/nuxt/dist/app/entry.js"
     ]
   },
-  "_PhYFcxJq.js": {
+  "_fDihqSqa.js": {
     "resourceType": "script",
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "PhYFcxJq.js",
-    "name": "bank",
+    "file": "fDihqSqa.js",
+    "name": "v3",
     "imports": [
       "node_modules/nuxt/dist/app/entry.js"
     ]
@@ -75,41 +75,6 @@ const client_manifest = {
     "file": "icon-api.Uv2yuT7M.svg",
     "src": "assets/images/icon-api.svg"
   },
-  "assets/images/image-confetti.jpg": {
-    "resourceType": "image",
-    "prefetch": true,
-    "mimeType": "image/jpeg",
-    "file": "image-confetti.8wpdFRL8.jpg",
-    "src": "assets/images/image-confetti.jpg"
-  },
-  "assets/images/image-currency.jpg": {
-    "resourceType": "image",
-    "prefetch": true,
-    "mimeType": "image/jpeg",
-    "file": "image-currency.fQkhky90.jpg",
-    "src": "assets/images/image-currency.jpg"
-  },
-  "assets/images/image-mockups.png": {
-    "resourceType": "image",
-    "prefetch": true,
-    "mimeType": "image/png",
-    "file": "image-mockups.Ci_U7FTV.png",
-    "src": "assets/images/image-mockups.png"
-  },
-  "assets/images/image-plane.jpg": {
-    "resourceType": "image",
-    "prefetch": true,
-    "mimeType": "image/jpeg",
-    "file": "image-plane.CXMVhojA.jpg",
-    "src": "assets/images/image-plane.jpg"
-  },
-  "assets/images/image-restaurant.jpg": {
-    "resourceType": "image",
-    "prefetch": true,
-    "mimeType": "image/jpeg",
-    "file": "image-restaurant.Djjssr-y.jpg",
-    "src": "assets/images/image-restaurant.jpg"
-  },
   "assets/images/logoFot.png": {
     "resourceType": "image",
     "prefetch": true,
@@ -122,19 +87,19 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "B1mfwRK7.js",
+    "file": "BTnRp1uU.js",
     "name": "default",
     "src": "layouts/default.vue",
     "isDynamicEntry": true,
     "imports": [
-      "_DDstcu13.js",
+      "_By164PBy.js",
       "node_modules/nuxt/dist/app/entry.js",
-      "_PhYFcxJq.js"
+      "_BTDoHQib.js"
     ],
     "css": []
   },
-  "default.BycReuKi.css": {
-    "file": "default.BycReuKi.css",
+  "default.C3JCHrL6.css": {
+    "file": "default.C3JCHrL6.css",
     "resourceType": "style",
     "prefetch": true,
     "preload": true
@@ -144,14 +109,14 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "zDTK4O7F.js",
+    "file": "C0yO1efX.js",
     "name": "error-404",
     "src": "node_modules/nuxt/dist/app/components/error-404.vue",
     "isDynamicEntry": true,
     "imports": [
-      "_DDstcu13.js",
+      "_By164PBy.js",
       "node_modules/nuxt/dist/app/entry.js",
-      "_BKQE_nRz.js"
+      "_fDihqSqa.js"
     ],
     "css": []
   },
@@ -166,13 +131,13 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "By3NtQ5S.js",
+    "file": "DIZjdQOR.js",
     "name": "error-500",
     "src": "node_modules/nuxt/dist/app/components/error-500.vue",
     "isDynamicEntry": true,
     "imports": [
       "node_modules/nuxt/dist/app/entry.js",
-      "_BKQE_nRz.js"
+      "_fDihqSqa.js"
     ],
     "css": []
   },
@@ -187,7 +152,7 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "D3JNfjQU.js",
+    "file": "M7YuTPLs.js",
     "name": "entry",
     "src": "node_modules/nuxt/dist/app/entry.js",
     "isEntry": true,
@@ -212,22 +177,17 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "ImaTdfYR.js",
+    "file": "-e3GgBsY.js",
     "name": "index",
     "src": "pages/index.vue",
     "isDynamicEntry": true,
     "imports": [
       "node_modules/nuxt/dist/app/entry.js",
-      "_PhYFcxJq.js"
+      "_BTDoHQib.js"
     ],
     "css": [],
     "assets": [
-      "image-mockups.Ci_U7FTV.png",
       "icon-api.Uv2yuT7M.svg",
-      "image-currency.fQkhky90.jpg",
-      "image-restaurant.Djjssr-y.jpg",
-      "image-plane.CXMVhojA.jpg",
-      "image-confetti.8wpdFRL8.jpg",
       "logoFot.DcJF7KD0.png"
     ]
   },
@@ -237,41 +197,11 @@ const client_manifest = {
     "prefetch": true,
     "preload": true
   },
-  "image-mockups.Ci_U7FTV.png": {
-    "file": "image-mockups.Ci_U7FTV.png",
-    "resourceType": "image",
-    "prefetch": true,
-    "mimeType": "image/png"
-  },
   "icon-api.Uv2yuT7M.svg": {
     "file": "icon-api.Uv2yuT7M.svg",
     "resourceType": "image",
     "prefetch": true,
     "mimeType": "image/svg+xml"
-  },
-  "image-currency.fQkhky90.jpg": {
-    "file": "image-currency.fQkhky90.jpg",
-    "resourceType": "image",
-    "prefetch": true,
-    "mimeType": "image/jpeg"
-  },
-  "image-restaurant.Djjssr-y.jpg": {
-    "file": "image-restaurant.Djjssr-y.jpg",
-    "resourceType": "image",
-    "prefetch": true,
-    "mimeType": "image/jpeg"
-  },
-  "image-plane.CXMVhojA.jpg": {
-    "file": "image-plane.CXMVhojA.jpg",
-    "resourceType": "image",
-    "prefetch": true,
-    "mimeType": "image/jpeg"
-  },
-  "image-confetti.8wpdFRL8.jpg": {
-    "file": "image-confetti.8wpdFRL8.jpg",
-    "resourceType": "image",
-    "prefetch": true,
-    "mimeType": "image/jpeg"
   },
   "logoFot.DcJF7KD0.png": {
     "file": "logoFot.DcJF7KD0.png",

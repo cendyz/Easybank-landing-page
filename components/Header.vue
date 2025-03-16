@@ -3,13 +3,13 @@
 		<div class="lg:container relative text-center lg:flex lg:px-[3.5rem] xl:px-0">
 			<picture>
 				<source :srcset="desktopIntro" media="(min-width: 1024px)" />
-				<img
+				<NuxtImg
 					:src="mobileIntro"
 					alt=""
 					aria-hidden="true"
 					class="block w-full lg:absolute lg:left-[50rem] xl:left-[55rem] lg:top-[-20rem] xl:top-[-26rem] lg:z-[0]" />
 			</picture>
-			<img
+			<NuxtImg
 				:src="phones"
 				alt="4 phones"
 				class="block w-[calc(100%-3rem)] absolute top-[-7rem] left-1/2 translate-x-[-50%] md:w-[70%] md:top-[5rem] lg:w-[65rem] xl:w-[70rem] lg:left-[91rem] xl:left-[119.9rem] lg:top-[-10.5rem] lg:z-[20]" />
@@ -34,9 +34,9 @@
 </template>
 
 <script setup lang="ts">
-import mobileIntro from 'assets/images/bg-intro-mobile.svg'
-import desktopIntro from 'assets/images/bg-intro-desktop.svg'
-import phones from 'assets/images/image-mockups.png'
+import mobileIntro from '/img/bg-intro-mobile.svg'
+import desktopIntro from '/img/bg-intro-desktop.svg'
+import phones from '/img/image-mockups.png'
 </script>
 
 <style scoped></style>

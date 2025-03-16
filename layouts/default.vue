@@ -1,7 +1,7 @@
 <template>
 	<nav class="px-[3rem] py-[2.2rem] bg-white w-full relative z-[100] lg:px-[3.5rem]" ref="navMenu">
 		<div class="flex justify-between relative container lg:items-center lg:justify-between lg:px-0 xl:px-0">
-			<img :src="logo" class="w-[15rem]" alt="logo easybank" />
+			<img :src="logo" class="w-[15rem] h-[2.3rem]" alt="logo easybank" />
 			<button
 				type="button"
 				@click="store.isOpenMenu = !store.isOpenMenu"
@@ -10,13 +10,13 @@
 				<img
 					:src="store.isOpenMenu ? closeMenu : hamburger"
 					:alt="store.isOpenMenu ? 'close menu' : 'open menu'"
-					class="h-[1.8rem] w-[2rem]"
-					:class="store.isOpenMenu ? 'w-[2rem]' : 'w-[2.8rem]'" />
+					class="h-[1.8rem]"
+					:class="store.isOpenMenu ? 'w-[2rem] h-[2.1rem]' : 'w-[2.8rem]'" />
 			</button>
 			<Transition>
 				<div
 					v-if="store.isOpenMenu"
-					class="absolute top-[9.5rem] w-[calc(100%-4.4rem)] justify-items-center bg-neutral-4 grid gap-y-[1.5rem] py-[3rem] rounded-md lg:none">
+					class="absolute top-[9.5rem] w-[calc(100%-4.4rem)] left-1/2 translate-x-[-50%] justify-items-center bg-neutral-4 grid gap-y-[1.5rem] py-[3rem] rounded-md lg:none">
 					<NuxtLink
 						to="/"
 						v-for="(item, index) in linksData"

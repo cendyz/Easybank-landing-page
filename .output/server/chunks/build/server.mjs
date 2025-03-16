@@ -1141,5 +1141,5 @@ const server = /*#__PURE__*/Object.freeze({
   default: entry$1
 });
 
-export { _export_sfc as _, useNuxtApp as a, useRuntimeConfig as b, nuxtLinkDefaults as c, navigateTo as n, resolveRouteObject as r, server as s, tryUseNuxtApp as t, useRouter as u };
+export { _export_sfc as _, useRuntimeConfig as a, useRouter as b, nuxtLinkDefaults as c, navigateTo as n, resolveRouteObject as r, server as s, tryUseNuxtApp as t, useNuxtApp as u };
 //# sourceMappingURL=server.mjs.map

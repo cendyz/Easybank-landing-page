@@ -50,9 +50,9 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
         class: "px-[3rem] py-[2.2rem] bg-white w-full relative z-[100] lg:px-[3.5rem]",
         ref_key: "navMenu",
         ref: navMenu
-      }, _attrs))} data-v-d7da6441><div class="flex justify-between relative container lg:items-center lg:justify-between lg:px-0 xl:px-0" data-v-d7da6441><img${ssrRenderAttr("src", unref(logo))} class="w-[15rem]" alt="logo easybank" data-v-d7da6441><button type="button" aria-label="open close nav menu" class="lg:hidden" data-v-d7da6441><img${ssrRenderAttr("src", unref(store).isOpenMenu ? unref(closeMenu) : unref(hamburger))}${ssrRenderAttr("alt", unref(store).isOpenMenu ? "close menu" : "open menu")} class="${ssrRenderClass([unref(store).isOpenMenu ? "w-[2rem]" : "w-[2.8rem]", "h-[1.8rem] w-[2rem]"])}" data-v-d7da6441></button>`);
+      }, _attrs))} data-v-d91a4b5b><div class="flex justify-between relative container lg:items-center lg:justify-between lg:px-0 xl:px-0" data-v-d91a4b5b><img${ssrRenderAttr("src", unref(logo))} class="w-[15rem] h-[2.3rem]" alt="logo easybank" data-v-d91a4b5b><button type="button" aria-label="open close nav menu" class="lg:hidden" data-v-d91a4b5b><img${ssrRenderAttr("src", unref(store).isOpenMenu ? unref(closeMenu) : unref(hamburger))}${ssrRenderAttr("alt", unref(store).isOpenMenu ? "close menu" : "open menu")} class="${ssrRenderClass([unref(store).isOpenMenu ? "w-[2rem] h-[2.1rem]" : "w-[2.8rem]", "h-[1.8rem]"])}" data-v-d91a4b5b></button>`);
       if (unref(store).isOpenMenu) {
-        _push(`<div class="absolute top-[9.5rem] w-[calc(100%-4.4rem)] justify-items-center bg-neutral-4 grid gap-y-[1.5rem] py-[3rem] rounded-md lg:none" data-v-d7da6441><!--[-->`);
+        _push(`<div class="absolute top-[9.5rem] w-[calc(100%-4.4rem)] left-1/2 translate-x-[-50%] justify-items-center bg-neutral-4 grid gap-y-[1.5rem] py-[3rem] rounded-md lg:none" data-v-d91a4b5b><!--[-->`);
         ssrRenderList(linksData.value, (item, index) => {
           _push(ssrRenderComponent(_component_NuxtLink, {
             to: "/",
@@ -75,7 +75,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
       } else {
         _push(`<!---->`);
       }
-      _push(`<div class="hidden lg:flex gap-x-[3.5rem]" data-v-d7da6441><!--[-->`);
+      _push(`<div class="hidden lg:flex gap-x-[3.5rem]" data-v-d91a4b5b><!--[-->`);
       ssrRenderList(linksData.value, (item, index) => {
         _push(ssrRenderComponent(_component_NuxtLink, {
           to: "/",
@@ -94,7 +94,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
           _: 2
         }, _parent));
       });
-      _push(`<!--]--></div><button type="button" class="hidden lg:block capitalize bg-gradient-to-r from-primary-2 to-primary-3 text-neutral-4 px-[2.8rem] py-[1.1rem] rounded-full font-w700 text-[1.4rem] lg:hover:opacity-60 lg:transition-opacity" data-v-d7da6441> request invite </button></div></nav>`);
+      _push(`<!--]--></div><button type="button" class="hidden lg:block capitalize bg-gradient-to-r from-primary-2 to-primary-3 text-neutral-4 px-[2.8rem] py-[1.1rem] rounded-full font-w700 text-[1.4rem] lg:hover:opacity-60 lg:transition-opacity" data-v-d91a4b5b> request invite </button></div></nav>`);
     };
   }
 });
@@ -105,7 +105,7 @@ _sfc_main.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("layouts/default.vue");
   return _sfc_setup ? _sfc_setup(props, ctx) : void 0;
 };
-const _default = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-d7da6441"]]);
+const _default = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-d91a4b5b"]]);
 
 export { _default as default };
 //# sourceMappingURL=default.vue.mjs.map
