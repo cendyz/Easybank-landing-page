@@ -72,7 +72,7 @@ function createHead(options = {}) {
   return head;
 }
 
-const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"},{"name":"description","content":"Discover Easybank – a simple and secure online banking experience. Manage your finances effortlessly with our user-friendly interface and innovative features. Sign up today!"}],"link":[{"rel":"icon","type":"image/svg+xml","href":"/favicon.ico?v2"}],"style":[],"script":[],"noscript":[],"title":"Frontend Mentor"};
+const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"},{"name":"description","content":"Discover Easybank – a simple and secure online banking experience. Manage your finances effortlessly with our user-friendly interface and innovative features. Sign up today!"}],"link":[{"rel":"icon","type":"image/svg+xml","href":"/favicon.ico?v2"}],"style":[],"script":[],"noscript":[],"title":"Frontend Mentor","htmlAttrs":{"lang":"en"}};
 
 const appRootTag = "div";
 

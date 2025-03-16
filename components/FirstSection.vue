@@ -9,9 +9,8 @@
 				We leverage Open Banking to turn your bank account into your financial hub. Control your finances like never
 				before.
 			</p>
-			<div
-				class="mt-[7rem] grid gap-y-[3rem] lg:grid lg:grid-cols-2 lg:place-items-center lg:gap-y-[6rem] xl:flex xl:justify-around">
-				<div v-for="(item, index) in profitsData" :key="index" class="xl:w-[29rem] xl:pl-[2rem] ">
+			<div class="mt-[7rem] grid gap-y-[3rem] lg:grid lg:grid-cols-2 lg:place-items-center lg:gap-y-[6rem] xl:flex xl:gap-x-[5%]">
+				<div v-for="(item, index) in profitsData" :key="index" class="xl:w-[23%]">
 					<img :src="item.img" :alt="item.title" class="block mx-auto w-[7rem] md:w-[8rem] lg:mx-0" />
 					<h3 class="text-primary-1 text-[2rem] my-[2rem] md:text-[2.2rem]">{{ item.title }}</h3>
 					<p class="md:w-[38rem] md:mx-auto lg:w-[26.5rem] lg:mx-0">
